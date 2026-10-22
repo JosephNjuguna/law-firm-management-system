@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Customer Cases Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../customers/style.css">
+</head>
+
+<body>
+    <div class="layout">
+        <main class="content">
+            <div class="content-inner" id="cases-list">
+                <h2 id="heading"></h2>
+                <div class="addnote">
+                    <div class="stat">
+                        <small>Total cases</small>
+                        <strong id="total">0</strong>
+                    </div>
+                    <div class="stat">
+                        <small>Note/Case</small>
+                        <p>Add Notes/Case Manually</p>
+                    </div>
+                </div>
+
+                <div class="cases" id="cases"></div>
+            </div>
+            <div class="case-detail" id="case-detail">
+            </div>
+        </main>
+        <aside class="sidebar">
+            <div class="card" aria-label="Calendar">
+                <h1>Customer Cases Portal</h1>
+                <p class="hint">click date to view cases</p>
+                <div class="cal-head">
+                    <p id="prev">prev month</p>
+                    <span id="monthLabel"></span>
+                    <p id="next">next month</p>
+                </div>
+                <div class="days">
+                    <span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span>
+                </div>
+                <div class="grid" id="grid"></div>
+                <div class="cal-foot">
+                    <div><strong>Today</strong><span id="todayLabel"></span></div>
+                    <button class="btn-today" id="todayBtn">Today</button>
+                </div>
+                <div class="cardbuttons">
+                    <button class="action" id="profileBtn">
+                        Profile Info
+                    </button>
+                    <a class="action logout" href="#" id="logoutBtn">
+                        Log out
+                    </a>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <script src="../customers/case.js"></script>
+    <script src="./lawyer.js"></script>
+</body>
+
+</html>
