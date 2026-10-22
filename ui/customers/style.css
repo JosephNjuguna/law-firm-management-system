@@ -12,11 +12,19 @@
     --stat-bg: #f6f8fb;
     --pill-bg: #e8ecf4;
     --title: #1a2233;
+
+    --bg: #f8f9fa;
+    --surface: #ffffff;
+    --border: #e5e7eb;
+    --text: #343a40;
+    --muted: #6b7280;
+    --badge-bg: #e5e7eb;
 }
 
 * {
     box-sizing: border-box;
     margin: 0;
+    padding: 0;
 }
 
 body {
@@ -70,25 +78,33 @@ button {
     margin: 48px 0 8px;
 }
 
-.card {
+.sidebar .card {
     align-self: center;
     width: 100%;
     background: #fff;
     border: 1px solid var(--line);
-    border-radius: 16px ;
+    border-radius: 16px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.379);
     color: var(--text);
     overflow: hidden;
     padding: 2%;
+
+    /* background: var(--surface); */
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    /* padding: 24px; */
+    /* width: 100%; */
 }
 
-.cardbuttons{
+.cardbuttons {
     padding: 1%;
 }
-.cardbuttons button{
+
+.cardbuttons button {
     margin: 1%;
 }
-.cardbuttons a{
+
+.cardbuttons a {
     margin: 1%;
 }
 
@@ -100,7 +116,7 @@ button {
     border-bottom: 1px solid var(--line);
 }
 
-.cal-head p{
+.cal-head p {
     cursor: pointer;
     color: blue;
 }
@@ -226,14 +242,16 @@ button {
 /* Content */
 .content {
     flex: 2;
-    padding: 299px 48px 48px 30px;
+    padding: 2;
     max-width: 100%;
+    width: 100%;
 }
 
 .content-inner {
-    padding: 1% 0 0 5%;
+    padding: 1%;
     max-width: 1231px;
     margin: 0 auto;
+    width: 100%;
 }
 
 h2 {
@@ -358,8 +376,196 @@ h2 {
     .case {
         padding: 24px 20px 24px 24px;
     }
+}
 
-    .case::before {
-        display: none;
+
+
+
+
+
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+}
+
+.back {
+    display: none;
+}
+
+.content {
+    background: var(--bg);
+    border: 1px solid #fff;
+    border-radius: 16px;
+    padding: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    min-height: 100vh;
+}
+
+/* Header */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+}
+
+.back {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text);
+    text-decoration: none;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.back:hover {
+    text-decoration: underline;
+}
+
+.back:focus-visible,
+.badge:focus-visible {
+    outline: 2px solid var(--text);
+    outline-offset: 4px;
+    border-radius: 4px;
+}
+
+.title-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: flex-start;
+    white-space: nowrap;
+}
+
+.title-group h1 {
+    font-size: 24px;
+    font-weight: bold;
+    line-height: normal;
+}
+
+.title-group p {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--muted);
+}
+
+.badge {
+    background: var(--badge-bg);
+    border-radius: 100px;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text);
+    white-space: nowrap;
+}
+
+/* Cards */
+/* .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    width: 100%;
+} */
+
+.details-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px 48px;
+}
+
+.field1 {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 2;
+}
+
+.field2 {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+}
+
+.field1 dt {
+    font-size: 12px;
+    font-weight: bold;
+    color: var(--muted);
+    text-transform: uppercase;
+}
+.field2 dt {
+    font-size: 12px;
+    font-weight: bold;
+    color: var(--muted);
+    text-transform: uppercase;
+}
+
+/* .field dt {
+    font-size: 12px;
+    font-weight: bold;
+    color: var(--muted);
+    text-transform: uppercase;
+} */
+
+.field dd {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.section h2 {
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.section .path {
+    font-size: 14px;
+}
+
+.syllabus-text {
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.syllabus-text p+p {
+    margin-top: 1.6em;
+}
+
+/* Responsive */
+@media (max-width: 720px) {
+    .content {
+        padding: 20px;
+        gap: 20px;
+        border-radius: 0;
+    }
+
+    .header {
+        flex-wrap: wrap;
+    }
+
+    .back,
+    .title-group h1 {
+        font-size: 20px;
+    }
+
+    .title-group {
+        white-space: normal;
+    }
+
+    .details-row {
+        gap: 16px 32px;
     }
 }
