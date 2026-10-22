@@ -167,7 +167,6 @@ const fmtLong = new Intl.DateTimeFormat("en-US", { weekday: "long", month: "shor
 const fmtHeading = new Intl.DateTimeFormat("en-US", { month: "long", day: "numeric", year: "numeric" });
 const fmtMonth = new Intl.DateTimeFormat("en-US", { month: "long", year: "numeric" });
 
-// state
 const today = dayOf(new Date());
 let selected = today;
 let view = monthOf(today);
@@ -241,8 +240,6 @@ uisection("todayBtn").addEventListener("click", () => {
 function openCase(id) {
     const c = getCases(keyOf(selected)).find(c => c.id === id);
     if (!c) return;
-    // replace this with your real action, e.g. show a modal,
-    // or navigate: window.location.href = `/cases/${id}`;
     uisection("cases-list").style.display = "none";
     uisection("case-detail").style.display = "";
     uisection("case-detail").innerHTML = `
