@@ -1,0 +1,211 @@
+:root {
+    --ink: #111827;
+    --muted: #5b6472;
+    --surface: #f1f2f4;
+    --border: #d5d8dd;
+    --navy: #1f2a44;
+    --white: #ffffff;
+    --sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --serif: "Newsreader", Georgia, "Times New Roman", serif;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+}
+
+body {
+    min-height: 100vh;
+    background: var(--white);
+    color: var(--ink);
+    font-family: var(--sans);
+    -webkit-font-smoothing: antialiased;
+}
+
+
+#nameerror{
+    display: none;
+}
+#passworderror{
+    display: none;
+}
+
+.page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 24px;
+}
+
+.layout {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 72px 120px;
+}
+
+/* Hero copy */
+.hero {
+    width: 520px;
+    max-width: 100%;
+}
+
+.hero h1 {
+    margin: 0 0 24px;
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 64px;
+    line-height: 67.2px;
+    letter-spacing: -1.28px;
+    color: var(--ink);
+}
+
+.hero p {
+    margin: 0;
+    font-size: 18px;
+    line-height: 27px;
+    color: var(--muted);
+}
+
+/* Form */
+.form {
+    width: 400px;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form h2 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--ink);
+}
+
+.roles {
+    display: flex;
+    gap: 4px;
+    padding: 4px;
+    background: var(--surface);
+    border-radius: 12px;
+    border: 0;
+    margin: 0;
+}
+
+.roles legend {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+}
+
+.roles label {
+    flex: 1 1 0;
+    min-width: 1px;
+    cursor: pointer;
+}
+
+.roles input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.roles span {
+    display: block;
+    padding: 12px 0;
+    text-align: center;
+    font-size: 14px;
+    color: var(--muted);
+    border-radius: 9px;
+    transition: background-color .15s, color .15s, box-shadow .15s;
+}
+
+.roles input:checked+span {
+    background: var(--white);
+    color: var(--ink);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
+}
+
+.roles input:focus-visible+span {
+    outline: 2px solid var(--navy);
+    outline-offset: 2px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.field label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+}
+
+.field input {
+    height: 48px;
+    width: 100%;
+    padding: 0 14px;
+    font: inherit;
+    font-size: 15px;
+    color: var(--ink);
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+}
+
+.field input:focus-visible {
+    outline: 2px solid var(--navy);
+    outline-offset: 1px;
+    border-color: var(--navy);
+}
+
+.submit {
+    margin-top: 4px;
+    height: 48px;
+    width: 100%;
+    font: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--white);
+    background: var(--navy);
+    border: 0;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.submit:hover {
+    background: #17203a;
+}
+
+.submit:focus-visible {
+    outline: 2px solid var(--navy);
+    outline-offset: 3px;
+}
+
+@media (max-width: 640px) {
+    .hero h1 {
+        font-size: 44px;
+        line-height: 48px;
+        letter-spacing: -0.88px;
+    }
+
+    .hero p {
+        font-size: 16px;
+        line-height: 24px;
+    }
+}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sign in</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:wght@500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+
+mongodb+srv://josephnjuguna482_db_user:ksz2CiftbPssdFPP@github.edcdg1k.mongodb.net/
+<body>
+    <main class="page">
+        <div class="layout">
+            <section class="hero">
+                <h1>Your court cases, in one place.</h1>
+                <p>One secure database for every case, client and hearing.</p>
+            </section>
+
+            <form class="form" id="login-form">
+                <h2>Sign in</h2>
+
+                <fieldset class="roles">
+                    <legend>Sign in as</legend>
+                    <label><input type="radio" name="role" value="customer" checked><span>Customer</span></label>
+                    <label><input type="radio" name="role" value="editor"><span>Editor</span></label>
+                    <label><input type="radio" name="role" value="admin"><span>Admin</span></label>
+                </fieldset>
+
+                <div class="field">
+                    <label for="username">Username</label>
+                    <input id="username" name="username" type="text" autocomplete="username" required>
+                    <p id="nameerror"></p>
+                </div>
+
+                <div class="field">
+                    <label for="password">Password</label>
+                    <input id="password" name="password" type="password" autocomplete="current-password" required>
+                    <p id="passworderror"></p>
+                </div>
+
+                <button class="submit" type="submit">Sign in</button>
+            </form>
+        </div>
+    </main>
+    <script src="./login.js"></script>
+</body>
+
+</html>
