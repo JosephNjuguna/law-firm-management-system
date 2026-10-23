@@ -72,7 +72,6 @@ function getLoggedInUser(req) {
 
 
 
-
 async function createUser(req, res) {
     const { username, password, role } = await readBody(req);
     console.log(username, password, role);
@@ -137,8 +136,8 @@ const requestHandler = async (req, res) => {
 
         send(res, 404, { error: "Not found" });
     } catch (err) {
-        console.error(err.message);
-        console.log(err.message);
+        console.error(err);
+        console.log(err);
 
         if (err.message === "Invalid JSON") {
             return send(res, 400, { error: "Send the body as JSON" });
