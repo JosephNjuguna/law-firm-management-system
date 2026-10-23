@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="../customers/style.css">
+</head>
+
+<body>
+    <div class="layout">
+        <main class="content">
+
+            <div id="fetch-cases-list">
+                <h1>Fetch cases from CourtListener API</h1>
+                <div class="fetch-row">
+                    <div class="fld">
+                        <label class="lbl" for="from">Filed from</label>
+                        <input class="input" type="date" id="from" value="2026-10-01">
+                    </div>
+                    <div class="fld">
+                        <label class="lbl" for="to">Filed to</label>
+                        <input class="input" type="date" id="to" value="2026-10-31">
+                    </div>
+                    <button class="btn btn-primary" type="button">Fetch cases</button>
+                </div>
+                <section class="stats">
+                    <div class="stat">
+                        <span class="lbl">Results fetched</span>
+                        <span class="num" id="fetch-total">4</span>
+                    </div>
+                    <div class="stat">
+                        <span class="lbl">Selected</span>
+                        <span class="num" id="fetch-selected">2</span>
+                    </div>
+                    <div class="stat add">
+                        <span class="lbl">Add manually</span>
+                        <button class="new-case" type="button">+ New Case/Notes</button>
+                    </div>
+                </section>
+                <div class="content-inner" id="fetched-cases-list">
+                    <div class="fetched-cases" id="fetched-cases"></div>
+                </div>
+                <div class="savebutton">
+                    <button class="btn btn-primary" type="button">Save selected</button>
+                </div>
+            </div>
+
+            <div id="saved-cases-list">
+                <h1>View Cases from CourtListener API</h1>
+                <section class="stats">
+                    <div class="stat">
+                        <span class="lbl">Results fetched</span>
+                        <span class="num" id="total">4</span>
+                    </div>
+                    <div class="stat add">
+                        <span class="lbl">Add manually</span>
+                        <button class="new-case" type="button">+ New Case/Notes</button>
+                    </div>
+                </section>
+                <section class="bulk" id="fetchedcases">
+                    <h2 id="heading"></h2>
+                   
+                </section>
+                <div id="saved-cases"></div>
+            </div>
+
+            <div id="case-detail">
+            </div>
+
+            <div id="user-section">
+                <p>show users records</p>
+                <button class="action" id="addusers">
+                    Add User/Lawyers
+                </button>
+            </div>
+
+        </main>
+        <aside class="sidebar">
+            <div class="card" aria-label="Calendar">
+                <h1>Admin Portal</h1>
+
+                <div id="date-cases">
+                    <p class="hint">click date to view cases</p>
+                    <div class="cal-head">
+                        <p id="prev">prev month</p>
+                        <span id="monthLabel"></span>
+                        <p id="next">next month</p>
+                    </div>
+                    <div class="days">
+                        <span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span>
+                    </div>
+                    <div class="grid" id="grid"></div>
+                    <div class="cal-foot">
+                        <div><strong>Today</strong><span id="todayLabel"></span></div>
+                        <button class="btn-today" id="todayBtn">Today</button>
+                    </div>
+                </div>
+
+                <div class="cardbuttons">
+                    <button class="action" id="fecthcasesbutton">
+                        Add Cases Records
+                    </button>
+                    <button class="action" id="casesrecordsbutton">
+                        Cases Records
+                    </button>
+                    <button class="action" id="usersbutton">
+                        User Records
+                    </button>
+
+                    <a class="action logout" href="#" id="logoutBtn">
+                        Log out
+                    </a>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <script src="./admin.js"></script>
+</body>
+
+</html>
