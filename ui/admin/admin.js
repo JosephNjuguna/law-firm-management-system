@@ -9,6 +9,9 @@
 // update();
 
 
+import { toFetch } from "../../api/api.js";
+
+
 const adminuisection = id => document.getElementById(id);
 adminuisection("saved-cases-list").style.display = "none";
 adminuisection("user-section").style.display = "none";
@@ -44,161 +47,16 @@ adminuisection("usersbutton").addEventListener("click", () => {
 })
 
 
-const CASES = {
-    "2026-10-19": [
-        {
-            id: 1,
-            absolute_url: "/opinion/10676751/us-bank-v-webb/",
-            attorney: "",
-            caseName: "U.S. BANK v. WEBB",
-            court: "Court of Civil Appeals of Oklahoma",
-            dateFiled: "2026-10-19",
-            status: "Published",
-            syllabus: `¶1 Defendant/Appellant Garey Webb (Webb) appeals from the 
-                trial court's September 20, 2023 order confirming the sale of real 
-                property by the Wagoner County Sheriff on May 1, 2018. He also appeals 
-                from the trial court's order denying his motion to reconsider and 
-                vacate the order confirming the sale. Webb argued the confirmation 
-                was erroneous because the foreclosure judgment underlying the sheriff's 
-                sale had gone dormant pursuant to 12 O.S. §735 . 
-                We agree with the trial court: there was no irregularity in the proceedings, 
-                and the court's decision to confirm the sale was consistent with the law and 
-                supported by sufficient evidence. The court did not abuse its discretion by 
-                confirming the sheriff's sale or by denying Webb's motion to reconsider or 
-                vacate. We affirm.`
-        },
-        {
-            id: 2,
-            absolute_url: "/opinion/10676751/us-bank-v-webb/",
-            attorney: "",
-            caseName: "U.S. BANK v. WEBB",
-            court: "Court of Civil Appeals of Oklahoma",
-            dateFiled: "2026-10-19",
-            status: "Published",
-            syllabus: `¶1 Defendant/Appellant Garey Webb (Webb) appeals from the 
-                trial court's September 20, 2023 order confirming the sale of real 
-                property by the Wagoner County Sheriff on May 1, 2018. He also appeals 
-                from the trial court's order denying his motion to reconsider and 
-                vacate the order confirming the sale. Webb argued the confirmation 
-                was erroneous because the foreclosure judgment underlying the sheriff's 
-                sale had gone dormant pursuant to 12 O.S. §735 . 
-                We agree with the trial court: there was no irregularity in the proceedings, 
-                and the court's decision to confirm the sale was consistent with the law and 
-                supported by sufficient evidence. The court did not abuse its discretion by 
-                confirming the sheriff's sale or by denying Webb's motion to reconsider or 
-                vacate. We affirm.`
-        },
-        {
-            id: 3,
-            absolute_url: "/opinion/10676751/us-bank-v-webb/",
-            attorney: "",
-            caseName: "U.S. BANK v. WEBB",
-            court: "Court of Civil Appeals of Oklahoma",
-            dateFiled: "2026-10-19",
-            status: "Published",
-            syllabus: `¶1 Defendant/Appellant Garey Webb (Webb) appeals from the 
-                trial court's September 20, 2023 order confirming the sale of real 
-                property by the Wagoner County Sheriff on May 1, 2018. He also appeals 
-                from the trial court's order denying his motion to reconsider and 
-                vacate the order confirming the sale. Webb argued the confirmation 
-                was erroneous because the foreclosure judgment underlying the sheriff's 
-                sale had gone dormant pursuant to 12 O.S. §735 . 
-                We agree with the trial court: there was no irregularity in the proceedings, 
-                and the court's decision to confirm the sale was consistent with the law and 
-                supported by sufficient evidence. The court did not abuse its discretion by 
-                confirming the sheriff's sale or by denying Webb's motion to reconsider or 
-                vacate. We affirm.`
-        }
-    ],
-    "2026-10-20": [
-        {
-            id: 1,
-            absolute_url: "/opinion/10676751/us-bank-v-webb/",
-            attorney: "",
-            caseName: "U.S. BANK v. WEBB",
-            court: "Court of Civil Appeals of Oklahoma",
-            dateFiled: "2026-10-20",
-            status: "Published",
-            syllabus: `¶1 Defendant/Appellant Garey Webb (Webb) appeals from the 
-                trial court's September 20, 2023 order confirming the sale of real 
-                property by the Wagoner County Sheriff on May 1, 2018. He also appeals 
-                from the trial court's order denying his motion to reconsider and 
-                vacate the order confirming the sale. Webb argued the confirmation 
-                was erroneous because the foreclosure judgment underlying the sheriff's 
-                sale had gone dormant pursuant to 12 O.S. §735 . 
-                We agree with the trial court: there was no irregularity in the proceedings, 
-                and the court's decision to confirm the sale was consistent with the law and 
-                supported by sufficient evidence. The court did not abuse its discretion by 
-                confirming the sheriff's sale or by denying Webb's motion to reconsider or 
-                vacate. We affirm.`
-        },
-        {
-            id: 2,
-            absolute_url: "/opinion/10676751/us-bank-v-webb/",
-            attorney: "",
-            caseName: "U.S. BANK v. WEBB",
-            court: "Court of Civil Appeals of Oklahoma",
-            dateFiled: "2026-10-20",
-            status: "Published",
-            syllabus: `¶1 Defendant/Appellant Garey Webb (Webb) appeals from the 
-                trial court's September 20, 2023 order confirming the sale of real 
-                property by the Wagoner County Sheriff on May 1, 2018. He also appeals 
-                from the trial court's order denying his motion to reconsider and 
-                vacate the order confirming the sale. Webb argued the confirmation 
-                was erroneous because the foreclosure judgment underlying the sheriff's 
-                sale had gone dormant pursuant to 12 O.S. §735 . 
-                We agree with the trial court: there was no irregularity in the proceedings, 
-                and the court's decision to confirm the sale was consistent with the law and 
-                supported by sufficient evidence. The court did not abuse its discretion by 
-                confirming the sheriff's sale or by denying Webb's motion to reconsider or 
-                vacate. We affirm.`
-        },
-        {
-            id: 3,
-            absolute_url: "/opinion/10676751/us-bank-v-webb/",
-            attorney: "",
-            caseName: "U.S. BANK v. WEBB",
-            court: "Court of Civil Appeals of Oklahoma",
-            dateFiled: "2026-10-20",
-            status: "Published",
-            syllabus: `¶1 Defendant/Appellant Garey Webb (Webb) appeals from the 
-                trial court's September 20, 2023 order confirming the sale of real 
-                property by the Wagoner County Sheriff on May 1, 2018. He also appeals 
-                from the trial court's order denying his motion to reconsider and 
-                vacate the order confirming the sale. Webb argued the confirmation 
-                was erroneous because the foreclosure judgment underlying the sheriff's 
-                sale had gone dormant pursuant to 12 O.S. §735 . 
-                We agree with the trial court: there was no irregularity in the proceedings, 
-                and the court's decision to confirm the sale was consistent with the law and 
-                supported by sufficient evidence. The court did not abuse its discretion by 
-                confirming the sheriff's sale or by denying Webb's motion to reconsider or 
-                vacate. We affirm.`
-        }
-    ],
-    "2026-10-23": [
-        {
-            id: 2,
-            absolute_url: "/opinion/10676751/us-bank-v-webb/",
-            attorney: "",
-            caseName: "U.S. BANK v. WEBB",
-            court: "Court of Civil Appeals of Oklahoma",
-            dateFiled: "2026-10-23",
-            status: "Published",
-            syllabus: `¶1 Defendant/Appellant Garey Webb (Webb) appeals from the 
-                trial court's September 20, 2023 order confirming the sale of real 
-                property by the Wagoner County Sheriff on May 1, 2018. He also appeals 
-                from the trial court's order denying his motion to reconsider and 
-                vacate the order confirming the sale. Webb argued the confirmation 
-                was erroneous because the foreclosure judgment underlying the sheriff's 
-                sale had gone dormant pursuant to 12 O.S. §735 . 
-                We agree with the trial court: there was no irregularity in the proceedings, 
-                and the court's decision to confirm the sale was consistent with the law and 
-                supported by sufficient evidence. The court did not abuse its discretion by 
-                confirming the sheriff's sale or by denying Webb's motion to reconsider or 
-                vacate. We affirm.`
-        },
-    ]
-};
+
+
+
+
+
+
+
+
+
+const CASES = {};
 
 // helpers
 const uisection = id => document.getElementById(id);
@@ -277,7 +135,6 @@ function renderFetchedCases() {
             `).join("")
         : '<div class="empty">No cases on this date.</div>';
 }
-
 
 function renderCases() {
     uisection("case-detail").style.display = "none";
@@ -371,6 +228,37 @@ uisection("saved-cases").addEventListener("click", e => {
     openCase(Number(btn.dataset.id));
 });
 
+uisection('getcases').addEventListener("click", async () => {
+    let startdate = uisection("from").value;
+    let enddate = uisection("to").value;
+    let casesfetcheddata = await toFetch(startdate, enddate);
+    saveCasesToObject(casesfetcheddata);
+})
+
+function saveCasesToObject(fetched) {
+    const list = Array.isArray(fetched) ? fetched : (fetched?.results ?? []);
+    const grouped = {};
+    for (const c of list) {
+        const date = String(c.dateFiled ?? "").slice(0, 10);
+        if (!date){
+           continue; 
+        } 
+        (grouped[date] ??= []).push({
+            id: grouped[date].length + 1,
+            absolute_url: c.absolute_url ?? "",
+            attorney: c.attorney ?? "",
+            caseName: c.caseName ?? "",
+            court: c.court ?? "",
+            dateFiled: date,
+            status: c.status ?? "",
+            syllabus: c.syllabus ?? ""
+        });
+    }
+    Object.assign(CASES, grouped);
+
+    console.log(CASES);
+    return grouped;
+}
 
 
 function render() {
