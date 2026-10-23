@@ -1,0 +1,284 @@
+:root {
+    --ink: #111827;
+    --muted: #4b5563;
+    --navy: #24304a;
+    --panel: #f7f8fb;
+    --border: #e5e7eb;
+    --field-border: #d1d5db;
+    --bulk: #eef2fb;
+    --badge-new: #e8ecf5;
+    --badge-ok-bg: #dcf3e4;
+    --badge-ok-text: #14532d;
+    --link: #0a60c2;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    color: var(--ink);
+    background: #fff;
+    -webkit-font-smoothing: antialiased;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-bottom: 40px;
+}
+
+h1 {
+    font-size: 22px;
+    font-weight: 700;
+}
+
+/* Controls shared */
+label.lbl {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--muted);
+}
+
+.input,
+select {
+    height: 42px;
+    background: #fff;
+    border: 1px solid var(--field-border);
+    border-radius: 8px;
+    padding: 0 12px;
+    font: inherit;
+    font-size: 14px;
+    color: var(--ink);
+}
+
+select {
+    padding: 0 28px 0 16px;
+    min-width: 150px;
+}
+
+.btn {
+    height: 42px;
+    padding: 0 18px;
+    border-radius: 8px;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-primary {
+    background: var(--navy);
+    color: #fff;
+    border: 1px solid var(--navy);
+}
+
+.btn-outline {
+    background: #fff;
+    color: var(--navy);
+    border: 1px solid var(--navy);
+}
+
+.btn:hover {
+    filter: brightness(1.12);
+}
+
+.btn-outline:hover {
+    background: var(--bulk);
+    filter: none;
+}
+
+.btn:focus-visible,
+.input:focus-visible,
+select:focus-visible,
+.row input:focus-visible,
+.new-case:focus-visible {
+    outline: 2px solid var(--link);
+    outline-offset: 2px;
+}
+
+/* Fetch panel */
+.fetch {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.fetch h2 {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.fetch-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 14px;
+}
+
+.fld {
+    flex: 1 0 150px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.fld .input {
+    width: 100%;
+}
+
+/* Stats */
+.stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding-top: 4px;
+}
+
+.stat {
+    flex: 1 0 200px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    min-height: 72px;
+}
+
+.stat .lbl {
+    display: block;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--muted);
+}
+
+.stat .num {
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.stat.add {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.new-case {
+    background: none;
+    border: 0;
+    font: inherit;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--link);
+    cursor: pointer;
+}
+
+/* Bulk bar */
+.bulk {
+    background: var(--bulk);
+    border-radius: 12px;
+    padding: 16px 16px 12px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+}
+
+.bulk .count {
+    flex: 1 0 120px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.bulk label {
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.bulk select {
+    min-width: 200px;
+}
+
+/* Rows */
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.row {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+}
+
+.row .pick {
+    flex: 1 0 260px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    cursor: pointer;
+}
+
+.row input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin: 3px 4px 3px 4px;
+    accent-color: var(--navy);
+    flex-shrink: 0;
+}
+
+.row .title {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.row .meta {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 3px;
+}
+
+.badge {
+    border-radius: 999px;
+    padding: 4px 10px;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+    background: var(--badge-new);
+    color: var(--navy);
+}
+
+.badge.ok {
+    background: var(--badge-ok-bg);
+    color: var(--badge-ok-text);
+}
+
+@media (max-width: 640px) {
+
+    .fetch-row .btn,
+    .bulk .btn {
+        width: 100%;
+    }
+
+    .bulk select {
+        width: 100%;
+    }
+}
