@@ -13,10 +13,10 @@
 <body>
     <div class="layout">
         <main class="content">
-            <h1>Fetch &amp; assign cases</h1>
 
-            <section class="fetch" id="fetchcases">
-                <h2 id="fetch-title">Fetch from CourtListener</h2>
+
+            <section class="fetch" id="fetchcases-section">
+                <h1>Fetch cases from CourtListener API</h1>
                 <div class="fetch-row">
                     <div class="fld">
                         <label class="lbl" for="from">Filed from</label>
@@ -28,135 +28,171 @@
                     </div>
                     <button class="btn btn-primary" type="button">Fetch cases</button>
                 </div>
+                <section class="stats">
+                    <div class="stat">
+                        <span class="lbl">Results fetched</span>
+                        <span class="num" id="fetch-total">4</span>
+                    </div>
+                    <div class="stat">
+                        <span class="lbl">Selected</span>
+                        <span class="num" id="fetch-selected">2</span>
+                    </div>
+                    <div class="stat add">
+                        <span class="lbl">Add manually</span>
+                        <button class="new-case" type="button">+ New Case/Notes</button>
+                    </div>
+                </section>
+                <div class="content-inner" id="fetched-cases-list">
+                    <div class="cases" id="fetched-cases"></div>
+                </div>
+                <div class="savebutton">
+                    <button class="btn btn-primary" type="button">Save selected</button>
+                </div>
             </section>
 
-            <!-- <section class="stats" aria-label="Summary">
-                <div class="stat">
-                    <span class="lbl">Results fetched</span>
-                    <span class="num" id="total">4</span>
-                </div>
-                <div class="stat">
-                    <span class="lbl">Selected</span>
-                    <span class="num" id="selected">2</span>
-                </div>
-                <div class="stat add">
-                    <span class="lbl">Add manually</span>
-                    <button class="new-case" type="button">+ New Case/Notes</button>
-                </div>
-            </section>
 
-            <section class="bulk" aria-label="Bulk assign">
-                <span class="count"><span id="bulk-count">2</span> selected</span>
-                <label for="bulk">Assign to</label>
-                <select id="bulk">
-                    <option value="">Choose customer…</option>
-                    <option>[Customer A]</option>
-                    <option>[Customer B]</option>
-                </select>
-                <button class="btn btn-primary" type="button">Save &amp; assign selected</button>
-            </section>
 
-            <section class="list" aria-label="Cases" id="cases" >
-                <div class="row">
-                    <label class="pick">
-                        <input type="checkbox" checked>
-                        <span>
-                            <div class="title">[Case title 1]</div>
-                            <div class="meta">[Court name] · Docket [No.] · Filed Oct 20, 2026</div>
-                        </span>
-                    </label>
-                    <span class="badge">New</span>
-                    <select aria-label="Assign case 1 to customer">
-                        <option>Assign to…</option>
-                        <option>[Customer A]</option>
-                        <option>[Customer B]</option>
-                    </select>
-                    <a class="btn btn-outline" href="#">View case</a>
-                </div>
 
-                <div class="row">
-                    <label class="pick">
-                        <input type="checkbox" checked>
-                        <span>
-                            <div class="title">[Case title 2]</div>
-                            <div class="meta">[Court name] · Docket [No.] · Filed Oct 14, 2026</div>
-                        </span>
-                    </label>
-                    <span class="badge">New</span>
-                    <select aria-label="Assign case 2 to customer">
-                        <option>Assign to…</option>
-                        <option>[Customer A]</option>
-                        <option>[Customer B]</option>
-                    </select>
-                    <a class="btn btn-outline" href="#">View case</a>
-                </div>
+            <div class="content-inner" id="cases-list">
+                <h1>Assign cases from CourtListener API</h1>
+                <section class="stats">
+                    <div class="stat">
+                        <span class="lbl">Results fetched</span>
+                        <span class="num" id="total">4</span>
+                    </div>
+                    <div class="stat add">
+                        <span class="lbl">Add manually</span>
+                        <button class="new-case" type="button">+ New Case/Notes</button>
+                    </div>
+                </section>
+                <section class="bulk" id="fetchedcases">
+                    <h2 id="heading"></h2>
+                   
+                </section>
+                <div class="cases" id="cases"></div>
 
-                <div class="row">
-                    <label class="pick">
-                        <input type="checkbox">
-                        <span>
-                            <div class="title">[Case title 3]</div>
-                            <div class="meta">[Court name] · Docket [No.] · Filed Oct 9, 2026</div>
-                        </span>
-                    </label>
-                    <span class="badge ok">Assigned · [Customer A]</span>
-                    <select aria-label="Reassign case 3">
-                        <option>Reassign…</option>
-                        <option>[Customer A]</option>
-                        <option>[Customer B]</option>
-                    </select>
-                    <a class="btn btn-outline" href="#">View case</a>
-                </div>
+                <!-- <section class="list" id="cases-list">
+                    <div class="row">
+                        <label class="pick">
+                            <input type="checkbox" checked>
+                            <span>
+                                <div class="title">[Case title 1]</div>
+                                <div class="meta">[Court name] · Docket [No.] · Filed Oct 20, 2026</div>
+                            </span>
+                        </label>
+                        <span class="badge">New</span>
+                        <select aria-label="Assign case 1 to customer">
+                            <option>Select Customer</option>
+                            <option>[Customer A]</option>
+                            <option>[Customer B]</option>
+                        </select>
+                        <select aria-label="Assign case 1 to customer">
+                            <option>Assign Lawyer</option>
+                            <option>[Lawyer A]</option>
+                            <option>[Lawyer B]</option>
+                        </select>
+                        <a class="btn btn-outline" href="#">View case</a>
+                    </div>
 
-                <div class="row">
-                    <label class="pick">
-                        <input type="checkbox">
-                        <span>
-                            <div class="title">[Case title 4]</div>
-                            <div class="meta">[Court name] · Docket [No.] · Filed Oct 2, 2026</div>
-                        </span>
-                    </label>
-                    <span class="badge">New</span>
-                    <select aria-label="Assign case 4 to customer">
-                        <option>Assign to…</option>
-                        <option>[Customer A]</option>
-                        <option>[Customer B]</option>
-                    </select>
-                    <a class="btn btn-outline" href="#">View case</a>
-                </div>
-            </section> -->
+                    <div class="row">
+                        <label class="pick">
+                            <input type="checkbox" checked>
+                            <span>
+                                <div class="title">[Case title 2]</div>
+                                <div class="meta">[Court name] · Docket [No.] · Filed Oct 14, 2026</div>
+                            </span>
+                        </label>
+                        <span class="badge">New</span>
+                        <select aria-label="Assign case 2 to customer">
+                            <option>Assign to…</option>
+                            <option>[Customer A]</option>
+                            <option>[Customer B]</option>
+                        </select>
+                        <a class="btn btn-outline" href="#">View case</a>
+                    </div>
+
+                    <div class="row">
+                        <label class="pick">
+                            <input type="checkbox">
+                            <span>
+                                <div class="title">[Case title 3]</div>
+                                <div class="meta">[Court name] · Docket [No.] · Filed Oct 9, 2026</div>
+                            </span>
+                        </label>
+                        <span class="badge ok">Assigned · [Customer A]</span>
+                        <select aria-label="Reassign case 3">
+                            <option>Reassign…</option>
+                            <option>[Customer A]</option>
+                            <option>[Customer B]</option>
+                        </select>
+                        <a class="btn btn-outline" href="#">View case</a>
+                    </div>
+
+                    <div class="row">
+                        <label class="pick">
+                            <input type="checkbox">
+                            <span>
+                                <div class="title">[Case title 4]</div>
+                                <div class="meta">[Court name] · Docket [No.] · Filed Oct 2, 2026</div>
+                            </span>
+                        </label>
+                        <span class="badge">New</span>
+                        <select aria-label="Assign case 4 to customer">
+                            <option>Assign to…</option>
+                            <option>[Customer A]</option>
+                            <option>[Customer B]</option>
+                        </select>
+                        <a class="btn btn-outline" href="#">View case</a>
+                    </div>
+                </section> -->
+            </div>
+
+            <div class="case-detail" id="case-detail">
+            </div>
+
+            <div id="user-section">
+                <p>show users records</p>
+                <button class="action" id="addusers">
+                    Add User/Lawyers
+                </button>
+            </div>
+
+            <div class="case-detail" id="case-detail">
+            </div>
 
         </main>
         <aside class="sidebar">
             <div class="card" aria-label="Calendar">
                 <h1>Admin Portal</h1>
-                <p class="hint">click date to view cases</p>
-                <!-- <div class="cal-head">
-                    <p id="prev">prev month</p>
-                    <span id="monthLabel"></span>
-                    <p id="next">next month</p>
+
+                <div id="date-cases">
+                    <p class="hint">click date to view cases</p>
+                    <div class="cal-head">
+                        <p id="prev">prev month</p>
+                        <span id="monthLabel"></span>
+                        <p id="next">next month</p>
+                    </div>
+                    <div class="days">
+                        <span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span>
+                    </div>
+                    <div class="grid" id="grid"></div>
+                    <div class="cal-foot">
+                        <div><strong>Today</strong><span id="todayLabel"></span></div>
+                        <button class="btn-today" id="todayBtn">Today</button>
+                    </div>
                 </div>
-                <div class="days">
-                    <span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span>
-                </div> -->
-                <!-- <div class="grid" id="grid"></div> -->
-                <!-- <div class="cal-foot">
-                    <div><strong>Today</strong><span id="todayLabel"></span></div>
-                    <button class="btn-today" id="todayBtn">Today</button>
-                </div> -->
+
                 <div class="cardbuttons">
-                    <button class="action" id="profileBtn">
+                    <button class="action" id="fecthcasesbutton">
                         Add Cases Records
                     </button>
-                    <button class="action" id="profileBtn">
+                    <button class="action" id="casesrecordsbutton">
                         Cases Records
                     </button>
-                    <button class="action" id="profileBtn">
+                    <button class="action" id="usersbutton">
                         User Records
                     </button>
-                    <button class="action" id="profileBtn">
-                        Add User/Lawyers
-                    </button>
+
                     <a class="action logout" href="#" id="logoutBtn">
                         Log out
                     </a>
@@ -165,9 +201,6 @@
         </aside>
     </div>
 
-    
-   
-    <script src="../customers/case.js"></script> 
     <script src="./admin.js"></script>
 </body>
 
