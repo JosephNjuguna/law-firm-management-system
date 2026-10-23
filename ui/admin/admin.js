@@ -267,3 +267,9 @@ function render() {
     renderCases();
 }
 render();
+
+
+uisection("logoutBtn").addEventListener("click", () => {
+    localStorage.clear();
+    window.location.href = "../login/login.html";
+})

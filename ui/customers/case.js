@@ -288,10 +288,8 @@ uisection("cases").addEventListener("click", e => {
 });
 
 uisection("logoutBtn").addEventListener("click", () => {
-    function logout() {
-        localStorage.clear();
-        showLoginForm();
-    }
+    localStorage.clear();
+    window.location.href = "../login/login.html";
 })
 
 render();
