@@ -1,0 +1,31 @@
+{
+  "name": "law-firm-management-system",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node --import dotenv/config ./api/app.js",
+    "dev": "nodemon --import dotenv/config ./api/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JosephNjuguna/law-firm-management-system.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/JosephNjuguna/law-firm-management-system/issues"
+  },
+  "homepage": "https://github.com/JosephNjuguna/law-firm-management-system#readme",
+  "dependencies": {
+    "@neondatabase/serverless": "^1.2.0",
+    "dotenv": "^18.0.9",
+    "express": "^5.3.0",
+    "pg": "^8.23.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
