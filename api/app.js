@@ -58,17 +58,23 @@ function hashPassword(password) {
     return `${salt}:${hash}`;
 }
 
+function passwordMatches(password, saved) {
+  const [salt, hash] = saved.split(":");
+  const attempt = crypto.scryptSync(password, salt, 64).toString("hex");
+  return attempt === hash;
+}
+
 // Reads the token from the "Authorization: Bearer xxx" header
 function getLoggedInUser(req) {
     const token = (req.headers.authorization || "").replace("Bearer ", "");
     return sessions.get(token);
 }
 
+
+
 async function createUser(req, res) {
     const { username, password, role } = await readBody(req);
-
     console.log(username, password, role);
-
     if (!username || !password || !role) {
         return send(res, 400, { error: "username, password and role are required" });
     }
@@ -92,6 +98,27 @@ async function createUser(req, res) {
     }
 }
 
+async function login(req, res) {
+  const { username, password } = await readBody(req);
+  console.log(username, password);
+  const rows = await sql`SELECT * FROM users WHERE username = ${username}`;
+  const user = rows[0];
+
+  if (!user || !passwordMatches(password, user.password_hash)) {
+    return send(res, 401, { error: "Wrong username or password" });
+  }
+
+  const token = crypto.randomBytes(24).toString("hex");
+  sessions.set(token, { username: user.username, role: user.role });
+
+  send(res, 200, { token, username: user.username, role: user.role });
+}
+
+
+
+
+
+
 const requestHandler = async (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
@@ -103,11 +130,14 @@ const requestHandler = async (req, res) => {
         if (route === "POST /api/addusers") {
             return await createUser(req, res);
         }
+        if (route === "POST /api/login") { 
+            return await login(req, res); 
+        }
 
         send(res, 404, { error: "Not found" });
     } catch (err) {
-        console.error(err.message);
-        console.log(err.message);
+        console.error(err);
+        console.log(err);
 
         if (err.message === "Invalid JSON") {
             return send(res, 400, { error: "Send the body as JSON" });
