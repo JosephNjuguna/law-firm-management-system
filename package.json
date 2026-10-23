@@ -17,5 +17,10 @@
   "bugs": {
     "url": "https://github.com/JosephNjuguna/law-firm-management-system/issues"
   },
-  "homepage": "https://github.com/JosephNjuguna/law-firm-management-system#readme"
+  "homepage": "https://github.com/JosephNjuguna/law-firm-management-system#readme",
+  "dependencies": {
+    "dotenv": "^18.0.9",
+    "express": "^5.3.0",
+    "pg": "^8.23.1"
+  }
 }
