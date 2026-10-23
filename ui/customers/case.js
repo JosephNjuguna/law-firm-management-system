@@ -287,4 +287,11 @@ uisection("cases").addEventListener("click", e => {
     openCase(Number(btn.dataset.id));
 });
 
+uisection("logoutBtn").addEventListener("click", () => {
+    function logout() {
+        localStorage.clear();
+        showLoginForm();
+    }
+})
+
 render();
