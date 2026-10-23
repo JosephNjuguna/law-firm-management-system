@@ -9,7 +9,7 @@
 // update();
 
 
-import { toFetch } from "../../api/api.js";
+import { toFetch } from "../api/api.js";
 
 
 const adminuisection = id => document.getElementById(id);
