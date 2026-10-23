@@ -14,8 +14,7 @@
     <div class="layout">
         <main class="content">
 
-
-            <section class="fetch" id="fetchcases-section">
+            <div id="fetch-cases-list">
                 <h1>Fetch cases from CourtListener API</h1>
                 <div class="fetch-row">
                     <div class="fld">
@@ -43,18 +42,15 @@
                     </div>
                 </section>
                 <div class="content-inner" id="fetched-cases-list">
-                    <div class="cases" id="fetched-cases"></div>
+                    <div class="fetched-cases" id="fetched-cases"></div>
                 </div>
                 <div class="savebutton">
                     <button class="btn btn-primary" type="button">Save selected</button>
                 </div>
-            </section>
+            </div>
 
-
-
-
-            <div class="content-inner" id="cases-list">
-                <h1>Assign cases from CourtListener API</h1>
+            <div id="saved-cases-list">
+                <h1>View Cases from CourtListener API</h1>
                 <section class="stats">
                     <div class="stat">
                         <span class="lbl">Results fetched</span>
@@ -69,85 +65,10 @@
                     <h2 id="heading"></h2>
                    
                 </section>
-                <div class="cases" id="cases"></div>
-
-                <!-- <section class="list" id="cases-list">
-                    <div class="row">
-                        <label class="pick">
-                            <input type="checkbox" checked>
-                            <span>
-                                <div class="title">[Case title 1]</div>
-                                <div class="meta">[Court name] · Docket [No.] · Filed Oct 20, 2026</div>
-                            </span>
-                        </label>
-                        <span class="badge">New</span>
-                        <select aria-label="Assign case 1 to customer">
-                            <option>Select Customer</option>
-                            <option>[Customer A]</option>
-                            <option>[Customer B]</option>
-                        </select>
-                        <select aria-label="Assign case 1 to customer">
-                            <option>Assign Lawyer</option>
-                            <option>[Lawyer A]</option>
-                            <option>[Lawyer B]</option>
-                        </select>
-                        <a class="btn btn-outline" href="#">View case</a>
-                    </div>
-
-                    <div class="row">
-                        <label class="pick">
-                            <input type="checkbox" checked>
-                            <span>
-                                <div class="title">[Case title 2]</div>
-                                <div class="meta">[Court name] · Docket [No.] · Filed Oct 14, 2026</div>
-                            </span>
-                        </label>
-                        <span class="badge">New</span>
-                        <select aria-label="Assign case 2 to customer">
-                            <option>Assign to…</option>
-                            <option>[Customer A]</option>
-                            <option>[Customer B]</option>
-                        </select>
-                        <a class="btn btn-outline" href="#">View case</a>
-                    </div>
-
-                    <div class="row">
-                        <label class="pick">
-                            <input type="checkbox">
-                            <span>
-                                <div class="title">[Case title 3]</div>
-                                <div class="meta">[Court name] · Docket [No.] · Filed Oct 9, 2026</div>
-                            </span>
-                        </label>
-                        <span class="badge ok">Assigned · [Customer A]</span>
-                        <select aria-label="Reassign case 3">
-                            <option>Reassign…</option>
-                            <option>[Customer A]</option>
-                            <option>[Customer B]</option>
-                        </select>
-                        <a class="btn btn-outline" href="#">View case</a>
-                    </div>
-
-                    <div class="row">
-                        <label class="pick">
-                            <input type="checkbox">
-                            <span>
-                                <div class="title">[Case title 4]</div>
-                                <div class="meta">[Court name] · Docket [No.] · Filed Oct 2, 2026</div>
-                            </span>
-                        </label>
-                        <span class="badge">New</span>
-                        <select aria-label="Assign case 4 to customer">
-                            <option>Assign to…</option>
-                            <option>[Customer A]</option>
-                            <option>[Customer B]</option>
-                        </select>
-                        <a class="btn btn-outline" href="#">View case</a>
-                    </div>
-                </section> -->
+                <div id="saved-cases"></div>
             </div>
 
-            <div class="case-detail" id="case-detail">
+            <div id="case-detail">
             </div>
 
             <div id="user-section">
@@ -155,9 +76,6 @@
                 <button class="action" id="addusers">
                     Add User/Lawyers
                 </button>
-            </div>
-
-            <div class="case-detail" id="case-detail">
             </div>
 
         </main>

@@ -10,7 +10,7 @@
 
 
 const adminuisection = id => document.getElementById(id);
-adminuisection("cases").style.display = "none";
+adminuisection("saved-cases-list").style.display = "none";
 adminuisection("user-section").style.display = "none";
 
 adminuisection("fecthcasesbutton").addEventListener("click", () => {
@@ -18,8 +18,8 @@ adminuisection("fecthcasesbutton").addEventListener("click", () => {
     adminuisection("casesrecordsbutton").style.color = "black";
     adminuisection("usersbutton").style.color = "black";
 
-    adminuisection("fetchcases-section").style.display = "";
-    adminuisection("cases").style.display = "none";
+    adminuisection("fetch-cases-list").style.display = "";
+    adminuisection("saved-cases-list").style.display = "none";
     adminuisection("user-section").style.display = "none";
 })
 
@@ -28,8 +28,8 @@ adminuisection("casesrecordsbutton").addEventListener("click", () => {
     adminuisection("casesrecordsbutton").style.color = "blue";
     adminuisection("usersbutton").style.color = "black";
 
-    adminuisection("fetchcases-section").style.display = "none";
-    adminuisection("cases").style.display = "";
+    adminuisection("fetch-cases-list").style.display = "none";
+    adminuisection("saved-cases-list").style.display = "";
     adminuisection("user-section").style.display = "none";
 })
 
@@ -38,8 +38,8 @@ adminuisection("usersbutton").addEventListener("click", () => {
     adminuisection("casesrecordsbutton").style.color = "black";
     adminuisection("usersbutton").style.color = "blue";
 
-    adminuisection("fetchcases-section").style.display = "none";
-    adminuisection("cases").style.display = "none";
+    adminuisection("fetch-cases-list").style.display = "none";
+    adminuisection("saved-cases-list").style.display = "none";
     adminuisection("user-section").style.display = "";
 })
 
@@ -247,6 +247,7 @@ function renderCalendar() {
 
 function renderFetchedCases() {
     uisection("fetched-cases-list").style.display = "";
+    // uisection("admin-cases-list").style.display = "none";
     const list = getCases(keyOf(selected));
     // uisection("heading").textContent = `${fmtHeading.format(selected)} Cases`;
     uisection("fetch-total").textContent = list.length;
@@ -280,11 +281,10 @@ function renderFetchedCases() {
 
 function renderCases() {
     uisection("case-detail").style.display = "none";
-    uisection("cases-list").style.display = "";
     const list = getCases(keyOf(selected));
     uisection("heading").textContent = `${fmtHeading.format(selected)} Cases`;
     uisection("total").textContent = list.length;
-    uisection("cases").innerHTML = list.length
+    uisection("saved-cases").innerHTML = list.length
         ? list.map(c => `
             <div class="row">
                 <label class="pick">
@@ -299,12 +299,6 @@ function renderCases() {
             
             `).join("")
         : '<div class="empty">No cases on this date.</div>';
-}
-
-function render() {
-    renderCalendar();
-    renderCases();
-    renderFetchedCases()
 }
 
 function shiftMonth(n) {
@@ -322,10 +316,15 @@ uisection("todayBtn").addEventListener("click", () => {
     uisection("case-detail").style.display = "none";
 });
 
+
+
+
+
+//--view case details
 function openCase(id) {
     const c = getCases(keyOf(selected)).find(c => c.id === id);
     if (!c) return;
-    uisection("cases-list").style.display = "none";
+    uisection("saved-cases-list").style.display = "none";
     uisection("case-detail").style.display = "";
     uisection("case-detail").innerHTML = `
             <main class="content" data-name="content">
@@ -365,11 +364,18 @@ function openCase(id) {
             `;
 }
 
-uisection("cases").addEventListener("click", e => {
+uisection("saved-cases").addEventListener("click", e => {
     const btn = e.target.closest(".view-btn");
     if (!btn) return;
     e.preventDefault();
     openCase(Number(btn.dataset.id));
 });
 
+
+
+function render() {
+    renderCalendar();
+    renderFetchedCases();
+    renderCases();
+}
 render();
