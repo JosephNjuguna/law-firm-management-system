@@ -1,160 +1,3 @@
-const CASES = {
-    "2026-10-19": [
-        {
-            id: 1,
-            absolute_url: "/opinion/10676751/us-bank-v-webb/",
-            attorney: "",
-            caseName: "U.S. BANK v. WEBB",
-            court: "Court of Civil Appeals of Oklahoma",
-            dateFiled: "2026-10-19",
-            status: "Published",
-            syllabus: `¶1 Defendant/Appellant Garey Webb (Webb) appeals from the 
-                trial court's September 20, 2023 order confirming the sale of real 
-                property by the Wagoner County Sheriff on May 1, 2018. He also appeals 
-                from the trial court's order denying his motion to reconsider and 
-                vacate the order confirming the sale. Webb argued the confirmation 
-                was erroneous because the foreclosure judgment underlying the sheriff's 
-                sale had gone dormant pursuant to 12 O.S. §735 . 
-                We agree with the trial court: there was no irregularity in the proceedings, 
-                and the court's decision to confirm the sale was consistent with the law and 
-                supported by sufficient evidence. The court did not abuse its discretion by 
-                confirming the sheriff's sale or by denying Webb's motion to reconsider or 
-                vacate. We affirm.`
-        },
-        {
-            id: 2,
-            absolute_url: "/opinion/10676751/us-bank-v-webb/",
-            attorney: "",
-            caseName: "U.S. BANK v. WEBB",
-            court: "Court of Civil Appeals of Oklahoma",
-            dateFiled: "2026-10-19",
-            status: "Published",
-            syllabus: `¶1 Defendant/Appellant Garey Webb (Webb) appeals from the 
-                trial court's September 20, 2023 order confirming the sale of real 
-                property by the Wagoner County Sheriff on May 1, 2018. He also appeals 
-                from the trial court's order denying his motion to reconsider and 
-                vacate the order confirming the sale. Webb argued the confirmation 
-                was erroneous because the foreclosure judgment underlying the sheriff's 
-                sale had gone dormant pursuant to 12 O.S. §735 . 
-                We agree with the trial court: there was no irregularity in the proceedings, 
-                and the court's decision to confirm the sale was consistent with the law and 
-                supported by sufficient evidence. The court did not abuse its discretion by 
-                confirming the sheriff's sale or by denying Webb's motion to reconsider or 
-                vacate. We affirm.`
-        },
-        {
-            id: 3,
-            absolute_url: "/opinion/10676751/us-bank-v-webb/",
-            attorney: "",
-            caseName: "U.S. BANK v. WEBB",
-            court: "Court of Civil Appeals of Oklahoma",
-            dateFiled: "2026-10-19",
-            status: "Published",
-            syllabus: `¶1 Defendant/Appellant Garey Webb (Webb) appeals from the 
-                trial court's September 20, 2023 order confirming the sale of real 
-                property by the Wagoner County Sheriff on May 1, 2018. He also appeals 
-                from the trial court's order denying his motion to reconsider and 
-                vacate the order confirming the sale. Webb argued the confirmation 
-                was erroneous because the foreclosure judgment underlying the sheriff's 
-                sale had gone dormant pursuant to 12 O.S. §735 . 
-                We agree with the trial court: there was no irregularity in the proceedings, 
-                and the court's decision to confirm the sale was consistent with the law and 
-                supported by sufficient evidence. The court did not abuse its discretion by 
-                confirming the sheriff's sale or by denying Webb's motion to reconsider or 
-                vacate. We affirm.`
-        }
-    ],
-    "2026-10-20": [
-        {
-            id: 1,
-            absolute_url: "/opinion/10676751/us-bank-v-webb/",
-            attorney: "",
-            caseName: "U.S. BANK v. WEBB",
-            court: "Court of Civil Appeals of Oklahoma",
-            dateFiled: "2026-10-20",
-            status: "Published",
-            syllabus: `¶1 Defendant/Appellant Garey Webb (Webb) appeals from the 
-                trial court's September 20, 2023 order confirming the sale of real 
-                property by the Wagoner County Sheriff on May 1, 2018. He also appeals 
-                from the trial court's order denying his motion to reconsider and 
-                vacate the order confirming the sale. Webb argued the confirmation 
-                was erroneous because the foreclosure judgment underlying the sheriff's 
-                sale had gone dormant pursuant to 12 O.S. §735 . 
-                We agree with the trial court: there was no irregularity in the proceedings, 
-                and the court's decision to confirm the sale was consistent with the law and 
-                supported by sufficient evidence. The court did not abuse its discretion by 
-                confirming the sheriff's sale or by denying Webb's motion to reconsider or 
-                vacate. We affirm.`
-        },
-        {
-            id: 2,
-            absolute_url: "/opinion/10676751/us-bank-v-webb/",
-            attorney: "",
-            caseName: "U.S. BANK v. WEBB",
-            court: "Court of Civil Appeals of Oklahoma",
-            dateFiled: "2026-10-20",
-            status: "Published",
-            syllabus: `¶1 Defendant/Appellant Garey Webb (Webb) appeals from the 
-                trial court's September 20, 2023 order confirming the sale of real 
-                property by the Wagoner County Sheriff on May 1, 2018. He also appeals 
-                from the trial court's order denying his motion to reconsider and 
-                vacate the order confirming the sale. Webb argued the confirmation 
-                was erroneous because the foreclosure judgment underlying the sheriff's 
-                sale had gone dormant pursuant to 12 O.S. §735 . 
-                We agree with the trial court: there was no irregularity in the proceedings, 
-                and the court's decision to confirm the sale was consistent with the law and 
-                supported by sufficient evidence. The court did not abuse its discretion by 
-                confirming the sheriff's sale or by denying Webb's motion to reconsider or 
-                vacate. We affirm.`
-        },
-        {
-            id: 3,
-            absolute_url: "/opinion/10676751/us-bank-v-webb/",
-            attorney: "",
-            caseName: "U.S. BANK v. WEBB",
-            court: "Court of Civil Appeals of Oklahoma",
-            dateFiled: "2026-10-20",
-            status: "Published",
-            syllabus: `¶1 Defendant/Appellant Garey Webb (Webb) appeals from the 
-                trial court's September 20, 2023 order confirming the sale of real 
-                property by the Wagoner County Sheriff on May 1, 2018. He also appeals 
-                from the trial court's order denying his motion to reconsider and 
-                vacate the order confirming the sale. Webb argued the confirmation 
-                was erroneous because the foreclosure judgment underlying the sheriff's 
-                sale had gone dormant pursuant to 12 O.S. §735 . 
-                We agree with the trial court: there was no irregularity in the proceedings, 
-                and the court's decision to confirm the sale was consistent with the law and 
-                supported by sufficient evidence. The court did not abuse its discretion by 
-                confirming the sheriff's sale or by denying Webb's motion to reconsider or 
-                vacate. We affirm.`
-        }
-    ],
-    "2026-10-23": [
-        {
-            id: 2,
-            absolute_url: "/opinion/10676751/us-bank-v-webb/",
-            attorney: "",
-            caseName: "U.S. BANK v. WEBB",
-            court: "Court of Civil Appeals of Oklahoma",
-            dateFiled: "2026-10-23",
-            status: "Published",
-            syllabus: `¶1 Defendant/Appellant Garey Webb (Webb) appeals from the 
-                trial court's September 20, 2023 order confirming the sale of real 
-                property by the Wagoner County Sheriff on May 1, 2018. He also appeals 
-                from the trial court's order denying his motion to reconsider and 
-                vacate the order confirming the sale. Webb argued the confirmation 
-                was erroneous because the foreclosure judgment underlying the sheriff's 
-                sale had gone dormant pursuant to 12 O.S. §735 . 
-                We agree with the trial court: there was no irregularity in the proceedings, 
-                and the court's decision to confirm the sale was consistent with the law and 
-                supported by sufficient evidence. The court did not abuse its discretion by 
-                confirming the sheriff's sale or by denying Webb's motion to reconsider or 
-                vacate. We affirm.`
-        },
-    ]
-};
-
-// helpers
 const uisection = id => document.getElementById(id);
 const pad = n => String(n).padStart(2, "0");
 const keyOf = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
@@ -199,29 +42,6 @@ function renderCalendar() {
     }
 }
 
-function renderCases() {
-    uisection("case-detail").style.display = "none";
-    uisection("cases-list").style.display = "";
-    const list = getCases(keyOf(selected));
-    uisection("heading").textContent = `${fmtHeading.format(selected)} Cases`;
-    uisection("total").textContent = list.length;
-    uisection("cases").innerHTML = list.length
-        ? list.map(c => `
-            <div class="case">
-              <div class="case-title">${esc(c.caseName)}</div>
-              <div class="case-side" data-id="${c.id}">
-                <span class="status">${esc(c.status)}</span>
-                <a class="view-btn" href="#case-${c.id}" data-id="${c.id}">View case</a>
-              </div>
-            </div>`).join("")
-        : '<div class="empty">No cases on this date.</div>';
-}
-
-function render() {
-    renderCalendar();
-    renderCases();
-}
-
 function shiftMonth(n) {
     view = new Date(view.getFullYear(), view.getMonth() + n, 1);
     renderCalendar();
@@ -237,8 +57,72 @@ uisection("todayBtn").addEventListener("click", () => {
     uisection("case-detail").style.display = "none";
 });
 
-function openCase(id) {
-    const c = getCases(keyOf(selected)).find(c => c.id === id);
+
+
+
+
+
+let loadedCases = [];
+const API = "http://localhost:3000";
+const token = localStorage.getItem("token");
+// function to render saved cases in the ui
+async function renderCases() {
+    uisection("case-detail").style.display = "none";
+    uisection("heading").textContent = `${fmtHeading.format(selected)} Cases`;
+    uisection("total").textContent = "…";
+    uisection("cases").innerHTML = '<div class="empty">Loading cases…</div>';
+
+    let all;
+    const headers = { Authorization: `Bearer ${token}` };
+    try {
+        const res = await fetch(`${API}/api/getcases`, { headers });
+        if (res.status === 401) {
+             window.location.href = "../login/login.html";
+            return;
+        }
+        if (res.status === 403) throw new Error("You don't have access to these cases");
+        if (!res.ok) throw new Error("Could not load cases");
+        all = await res.json();
+        console.log(all);
+        
+    } catch (err) {
+        uisection("total").textContent = 0;
+        uisection("cases").innerHTML = `<div class="empty">${esc(err.message)}</div>`;
+        return;
+    }
+
+    loadedCases = all;
+    const list = all.filter(c => c.dateFiled === keyOf(selected));
+
+    uisection("total").textContent = list.length;
+    uisection("cases").innerHTML = list.length
+        ? list.map(c => `
+            <div class="row">
+                <label class="pick">
+                    <input type="checkbox">
+                    <span>
+                        <div class="title">${esc(c.caseName)}</div>
+                        <div class="meta">${esc(c.court)} · Filed ${esc(c.dateFiled)}</div>
+                    </span>
+                </label>
+                <a class="view-btn" href="#case-${c.id}" data-id="${c.id}">View case</a>
+            </div>
+            `).join("")
+        : '<div class="empty">No cases on this date.</div>';
+}
+
+// in the section where saved cases are shown
+// i add listener to the buttons to show cases full details
+uisection("cases").addEventListener("click", e => {
+    const btn = e.target.closest(".view-btn");
+    if (!btn) return;
+    e.preventDefault();
+    viewCaseDetails(Number(btn.dataset.id));
+});
+
+// view case details
+function viewCaseDetails(id) {
+    const c = loadedCases.find(c => c.id === id && c.dateFiled === keyOf(selected));
     if (!c) return;
     uisection("cases-list").style.display = "none";
     uisection("case-detail").style.display = "";
@@ -247,7 +131,7 @@ function openCase(id) {
                 <header class="header">
                     <div class="title-group">
                         <h1>Case</h1>
-                        <p>${c.caseName}</p>
+                        <p>${esc(c.caseName)}</p>
                     </div>
                     <span class="badge">${esc(c.status)}</span>
                 </header>
@@ -273,23 +157,28 @@ function openCase(id) {
                 <section class="card section" aria-labelledby="syllabus-title">
                     <h2 id="syllabus-title">Syllabus</h2>
                     <div class="syllabus-text">
-                        <p>${c.syllabus}</p>
+                        <p>${esc(c.syllabus)}</p>
                     </div>
                 </section>
             </main>
             `;
 }
 
-uisection("cases").addEventListener("click", e => {
-    const btn = e.target.closest(".view-btn");
-    if (!btn) return;
-    e.preventDefault();
-    openCase(Number(btn.dataset.id));
-});
+
+
+
+
+
 
 uisection("logoutBtn").addEventListener("click", () => {
     localStorage.clear();
     window.location.href = "../login/login.html";
 })
+
+
+async function render() {
+    renderCalendar();
+    await renderCases();
+}
 
 render();
