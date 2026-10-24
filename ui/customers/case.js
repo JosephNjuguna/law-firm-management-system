@@ -54,6 +54,7 @@ uisection("next").addEventListener("click", () => shiftMonth(1));
 uisection("todayBtn").addEventListener("click", () => {
     selected = today;
     view = monthOf(today);
+    uisection("cases-list").style.display = "";
     render();
     uisection("case-detail").style.display = "none";
 });
@@ -78,12 +79,12 @@ async function renderCases() {
     try {
         const res = await fetch(`${API}/api/getcases`, { headers });
         if (res.status === 401) {
-             window.location.href = "../login/login.html";
+            window.location.href = "../login/login.html";
             return;
         }
         if (res.status === 403) throw new Error("You don't have access to these cases");
         if (!res.ok) throw new Error("Could not load cases");
-        all = await res.json();       
+        all = await res.json();
     } catch (err) {
         uisection("total").textContent = 0;
         uisection("cases").innerHTML = `<div class="empty">${esc(err.message)}</div>`;
