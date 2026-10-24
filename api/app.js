@@ -1,37 +1,57 @@
-import 'dotenv/config';
+import dns from "node:dns";
+import net from "node:net";
+
+dns.setDefaultResultOrder("ipv4first");
+net.setDefaultAutoSelectFamily(false);
+
+import "dotenv/config";
 import http from "http";
 import crypto from "crypto";
-import pg from "pg";
+import { neon } from "@neondatabase/serverless";
 
-const pool = new pg.Pool({
-    connectionString: process.env.DATABASE_URL,
-    ssl: { rejectUnauthorized: false },
-    connectionTimeoutMillis: 10000,
-    idleTimeoutMillis: 30000,
-    max: 10,
-});
-
-pool.on("error", (err) => {
-    console.error("Unexpected pg pool error:", err.message);
-});
-
-async function sql(strings, ...values) {
-    const text = strings[0] + values.map((_, i) => `$${i + 1}${strings[i + 1]}`).join("");
-    const result = await pool.query(text, values);
-    return result.rows;
-}
-
+const sql = neon(process.env.DATABASE_URL);
 const sessions = new Map();
+
+
+
+
 
 async function setupTables() {
     await sql`CREATE TABLE IF NOT EXISTS users (
-    id SERIAL PRIMARY KEY,
-    username TEXT UNIQUE NOT NULL,
-    password_hash TEXT NOT NULL,
-    role TEXT NOT NULL
-  )`;
+        id SERIAL PRIMARY KEY,
+        username TEXT UNIQUE NOT NULL,
+        password_hash TEXT NOT NULL,
+        role TEXT NOT NULL
+    )`;
+
+    await sql`CREATE TABLE IF NOT EXISTS cases (
+        id SERIAL PRIMARY KEY,
+        case_no INT NOT NULL,
+        date_filed DATE NOT NULL,
+        absolute_url TEXT,
+        attorney TEXT,
+        case_name TEXT,
+        court TEXT,
+        status TEXT,
+        syllabus TEXT,
+        customer_id INT REFERENCES users(id),
+        lawyer_id INT REFERENCES users(id),
+        UNIQUE (date_filed, case_no)
+    )`;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+//HELPER FUNCTIONS
 function send(res, status, data) {
     res.writeHead(status, { "Content-Type": "application/json" });
     res.end(JSON.stringify(data));
@@ -59,12 +79,11 @@ function hashPassword(password) {
 }
 
 function passwordMatches(password, saved) {
-  const [salt, hash] = saved.split(":");
-  const attempt = crypto.scryptSync(password, salt, 64).toString("hex");
-  return attempt === hash;
+    const [salt, hash] = saved.split(":");
+    const attempt = crypto.scryptSync(password, salt, 64).toString("hex");
+    return attempt === hash;
 }
 
-// Reads the token from the "Authorization: Bearer xxx" header
 function getLoggedInUser(req) {
     const token = (req.headers.authorization || "").replace("Bearer ", "");
     return sessions.get(token);
@@ -72,9 +91,13 @@ function getLoggedInUser(req) {
 
 
 
+
+
+
+
+// DATABASE INTERACTION FUNCTIONS
 async function createUser(req, res) {
     const { username, password, role } = await readBody(req);
-    console.log(username, password, role);
     if (!username || !password || !role) {
         return send(res, 400, { error: "username, password and role are required" });
     }
@@ -89,30 +112,82 @@ async function createUser(req, res) {
 
     try {
         await sql`INSERT INTO users (username, password_hash, role)
-              VALUES (${username}, ${hashPassword(password)}, ${role})`;
+                  VALUES (${username}, ${hashPassword(password)}, ${role})`;
         send(res, 200, { message: "User created" });
     } catch (err) {
         console.log(err);
-
-        send(res, 400, { error: "Username already exists" });
     }
 }
 
 async function login(req, res) {
-  const { username, password } = await readBody(req);
-  console.log(username, password);
-  const rows = await sql`SELECT * FROM users WHERE username = ${username}`;
-  const user = rows[0];
+    const { username, password } = await readBody(req);
+    const rows = await sql`SELECT * FROM users WHERE username = ${username}`;
+    const user = rows[0];
 
-  if (!user || !passwordMatches(password, user.password_hash)) {
-    return send(res, 401, { error: "Wrong username or password" });
-  }
+    if (!user || !passwordMatches(password, user.password_hash)) {
+        return send(res, 401, { error: "Wrong username or password" });
+    }
 
-  const token = crypto.randomBytes(24).toString("hex");
-  sessions.set(token, { username: user.username, role: user.role });
-
-  send(res, 200, { token, username: user.username, role: user.role });
+    const token = crypto.randomBytes(24).toString("hex");
+    sessions.set(token, { username: user.username, role: user.role });
+    send(res, 200, { token, username: user.username, role: user.role });
 }
+
+async function saveCases(req, res) {
+    if (!getLoggedInUser(req)) return send(res, 401, { error: "Please log in" });
+
+    const body = await readBody(req);
+    const list = body.cases;
+
+    if (!Array.isArray(list) || list.length === 0) {
+        return send(res, 400, { error: "cases must be a non-empty array" });
+    }
+
+    for (const c of list) {
+        if (!c.caseNo || !c.caseName || !/^\d{4}-\d{2}-\d{2}$/.test(c.dateFiled || "")) {
+            return send(res, 400, { error: "Each case needs caseNo, caseName and dateFiled (YYYY-MM-DD)" });
+        }
+        if (!Number.isInteger(c.customerId) || !Number.isInteger(c.lawyerId)) {
+            return send(res, 400, { error: `Select a customer and lawyer for "${c.caseName}"` });
+        }
+    }
+
+    let saved = 0;
+    let skipped = 0;
+
+    for (const c of list) {
+        const rows = await sql`
+            INSERT INTO cases (case_no, date_filed, absolute_url, attorney, case_name,
+                               court, status, syllabus, customer_id, lawyer_id)
+            VALUES (${c.caseNo}, ${c.dateFiled}, ${c.absoluteUrl ?? ""}, ${c.attorney ?? ""},
+                    ${c.caseName}, ${c.court ?? ""}, ${c.status ?? ""}, ${c.syllabus ?? ""},
+                    ${c.customerId}, ${c.lawyerId})
+            ON CONFLICT (date_filed, case_no) DO NOTHING
+            RETURNING case_no`;
+
+        if (rows.length) saved++; else skipped++;
+    }
+
+    send(res, 200, { saved, skipped });
+}
+
+async function GetUsersByRole(req, res, role) {
+    try {
+        const user = getLoggedInUser(req);
+
+        if (!user) return send(res, 401, { error: "Please log in" });
+        if (user.role !== "admin") return send(res, 403, { error: "Admins only" });
+
+        const rows = await sql`SELECT id, username FROM users WHERE role = ${role} ORDER BY username`;
+        send(res, 200, rows);
+    } catch (err) {
+        console.error(err);
+        send(res, 500, { error: "Server error" });
+    }
+}
+
+
+
 
 
 
@@ -124,34 +199,46 @@ const requestHandler = async (req, res) => {
     res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
     res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
     if (req.method === "OPTIONS") { res.writeHead(204); return res.end(); }
+
     try {
         const route = `${req.method} ${req.url}`;
 
         if (route === "POST /api/addusers") {
             return await createUser(req, res);
         }
-        if (route === "POST /api/login") { 
-            return await login(req, res); 
+        if (route === "POST /api/login") {
+            return await login(req, res);
+        }
+        if (route === "POST /api/cases") {
+            return await saveCases(req, res);
+        }
+        if (route === "GET /api/customers") {
+            return await GetUsersByRole(req, res, "customer");
+        }
+        if (route === "GET /api/lawyers") {
+            return await GetUsersByRole(req, res, "lawyer");
         }
 
         send(res, 404, { error: "Not found" });
     } catch (err) {
         console.error(err);
-        console.log(err);
-
-        if (err.message === "Invalid JSON") {
-            return send(res, 400, { error: "Send the body as JSON" });
-        }
         send(res, 500, { error: "Server error" });
     }
 };
 
-setupTables().then(() => {
-    http.createServer(requestHandler).listen(3000, () => {
-        console.log("Server running at http://localhost:3000");
-    });
-});
 
+
+
+
+
+
+
+
+
+
+
+
+// DATABASE SETUP
 async function withRetry(fn, retries = 5, delayMs = 2000) {
     for (let i = 1; i <= retries; i++) {
         try {
@@ -165,3 +252,7 @@ async function withRetry(fn, retries = 5, delayMs = 2000) {
 }
 
 await withRetry(setupTables);
+
+http.createServer(requestHandler).listen(3000, () => {
+    console.log("Server running at http://localhost:3000");
+});
