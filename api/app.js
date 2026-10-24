@@ -193,6 +193,46 @@ async function GetUsersByRole(req, res, role) {
 
 
 
+async function getCases(req, res) {
+    const user = getLoggedInUser(req);
+    if (!user) return send(res, 401, { error: "Please log in" });
+
+    let filter;
+    if (user.role === "admin") {
+        filter = sql``;
+    } else if (user.role === "lawyer") {
+        filter = sql`WHERE lawyer_id = (SELECT id FROM users WHERE username = ${user.username})`;
+    } else if (user.role === "customer") {
+        filter = sql`WHERE customer_id = (SELECT id FROM users WHERE username = ${user.username})`;
+    } else {
+        return send(res, 403, { error: "Not allowed" });
+    }
+
+    const rows = await sql`
+    SELECT case_no AS id,
+           absolute_url,
+           attorney,
+           case_name AS "caseName",
+           court,
+           to_char(date_filed, 'YYYY-MM-DD') AS "dateFiled",
+           status,
+           syllabus
+    FROM cases
+    ${filter}`;
+
+    send(res, 200, rows);
+}
+
+
+
+
+
+
+
+
+
+
+
 
 const requestHandler = async (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
@@ -217,6 +257,10 @@ const requestHandler = async (req, res) => {
         }
         if (route === "GET /api/lawyers") {
             return await GetUsersByRole(req, res, "lawyer");
+        }
+
+        if (route === "GET /api/cases") {
+            return await getCases(req, res);
         }
 
         send(res, 404, { error: "Not found" });
