@@ -34,8 +34,6 @@ password.addEventListener("input", () => {
 
 document.getElementById("login-form").addEventListener("submit", function (e) {
     e.preventDefault();
-    let role = document.querySelector('input[name="role"]:checked');
-    console.log(username.value.trim(), password.value.trim(), role.value);
     login(username.value.trim(), password.value.trim());
 });
 

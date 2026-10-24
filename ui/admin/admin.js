@@ -315,7 +315,7 @@ async function renderCases() {
     let all;
     const headers = { Authorization: `Bearer ${token}` };
     try {
-        const res = await fetch(`${API}/api/cases`, { headers });
+        const res = await fetch(`${API}/api/getcases`, { headers });
         if (res.status === 401) {
              window.location.href = "../login/login.html";
             return;

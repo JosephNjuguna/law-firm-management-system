@@ -258,11 +258,9 @@ const requestHandler = async (req, res) => {
         if (route === "GET /api/lawyers") {
             return await GetUsersByRole(req, res, "lawyer");
         }
-
-        if (route === "GET /api/cases") {
+        if (route === "GET /api/getcases") {
             return await getCases(req, res);
         }
-
         send(res, 404, { error: "Not found" });
     } catch (err) {
         console.error(err);
