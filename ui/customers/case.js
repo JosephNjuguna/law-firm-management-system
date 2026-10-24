@@ -36,6 +36,7 @@ function renderCalendar() {
         b.addEventListener("click", () => {
             selected = d;
             view = monthOf(d);
+            uisection("cases-list").style.display = "";
             render();
         });
         grid.appendChild(b);
@@ -82,9 +83,7 @@ async function renderCases() {
         }
         if (res.status === 403) throw new Error("You don't have access to these cases");
         if (!res.ok) throw new Error("Could not load cases");
-        all = await res.json();
-        console.log(all);
-        
+        all = await res.json();       
     } catch (err) {
         uisection("total").textContent = 0;
         uisection("cases").innerHTML = `<div class="empty">${esc(err.message)}</div>`;
@@ -97,9 +96,8 @@ async function renderCases() {
     uisection("total").textContent = list.length;
     uisection("cases").innerHTML = list.length
         ? list.map(c => `
-            <div class="row">
+            <div class="case">
                 <label class="pick">
-                    <input type="checkbox">
                     <span>
                         <div class="title">${esc(c.caseName)}</div>
                         <div class="meta">${esc(c.court)} · Filed ${esc(c.dateFiled)}</div>
