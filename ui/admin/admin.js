@@ -292,10 +292,8 @@ document.querySelector(".savebutton .btn").addEventListener("click", async e => 
 
 
 
-// when wee click section to show saved cases
-// we even call the function to render those cases
-// so this function goes to database 
-// gets saved cases and shows them here.
+let loadedCases = [];
+
 adminuisection("casesrecordsbutton").addEventListener("click", () => {
     adminuisection("fecthcasesbutton").style.color = "black";
     adminuisection("casesrecordsbutton").style.color = "blue";
@@ -305,12 +303,35 @@ adminuisection("casesrecordsbutton").addEventListener("click", () => {
     adminuisection("saved-cases-list").style.display = "";
     adminuisection("user-section").style.display = "none";
     renderCases();
-})
-//function to render saved cases in the ui
-function renderCases() {
+});
+
+// function to render saved cases in the ui
+async function renderCases() {
     uisection("case-detail").style.display = "none";
-    const list = getCases(keyOf(selected));
     uisection("heading").textContent = `${fmtHeading.format(selected)} Cases`;
+    uisection("total").textContent = "…";
+    uisection("saved-cases").innerHTML = '<div class="empty">Loading cases…</div>';
+
+    let all;
+    const headers = { Authorization: `Bearer ${token}` };
+    try {
+        const res = await fetch(`${API}/api/cases`, { headers });
+        if (res.status === 401) {
+             window.location.href = "../login/login.html";
+            return;
+        }
+        if (res.status === 403) throw new Error("You don't have access to these cases");
+        if (!res.ok) throw new Error("Could not load cases");
+        all = await res.json();
+    } catch (err) {
+        uisection("total").textContent = 0;
+        uisection("saved-cases").innerHTML = `<div class="empty">${esc(err.message)}</div>`;
+        return;
+    }
+
+    loadedCases = all;
+    const list = all.filter(c => c.dateFiled === keyOf(selected));
+
     uisection("total").textContent = list.length;
     uisection("saved-cases").innerHTML = list.length
         ? list.map(c => `
@@ -324,21 +345,22 @@ function renderCases() {
                 </label>
                 <a class="view-btn" href="#case-${c.id}" data-id="${c.id}">View case</a>
             </div>
-            
             `).join("")
         : '<div class="empty">No cases on this date.</div>';
 }
+
 // in the section where saved cases are shown
-// we add listener to the buttons to show cases full details
+// i add listener to the buttons to show cases full details
 uisection("saved-cases").addEventListener("click", e => {
     const btn = e.target.closest(".view-btn");
     if (!btn) return;
     e.preventDefault();
     viewCaseDetails(Number(btn.dataset.id));
 });
+
 // view case details
 function viewCaseDetails(id) {
-    const c = getCases(keyOf(selected)).find(c => c.id === id);
+    const c = loadedCases.find(c => c.id === id && c.dateFiled === keyOf(selected));
     if (!c) return;
     uisection("saved-cases-list").style.display = "none";
     uisection("case-detail").style.display = "";
@@ -347,7 +369,7 @@ function viewCaseDetails(id) {
                 <header class="header">
                     <div class="title-group">
                         <h1>Case</h1>
-                        <p>${c.caseName}</p>
+                        <p>${esc(c.caseName)}</p>
                     </div>
                     <span class="badge">${esc(c.status)}</span>
                 </header>
@@ -373,7 +395,7 @@ function viewCaseDetails(id) {
                 <section class="card section" aria-labelledby="syllabus-title">
                     <h2 id="syllabus-title">Syllabus</h2>
                     <div class="syllabus-text">
-                        <p>${c.syllabus}</p>
+                        <p>${esc(c.syllabus)}</p>
                     </div>
                 </section>
             </main>
