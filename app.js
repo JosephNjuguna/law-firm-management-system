@@ -10,7 +10,28 @@ import crypto from "crypto";
 import { neon } from "@neondatabase/serverless";
 
 const sql = neon(process.env.DATABASE_URL);
-const sessions = new Map();
+const SECRET = process.env.SESSION_SECRET;
+if (!SECRET) console.error("SESSION_SECRET is not set");
+
+function signToken(payload) {
+    const body = Buffer.from(JSON.stringify({ ...payload, exp: Date.now() + 1000 * 60 * 60 * 12 })).toString("base64url");
+    const sig = crypto.createHmac("sha256", SECRET || "").update(body).digest("base64url");
+    return `${body}.${sig}`;
+}
+
+function verifyToken(token) {
+    const [body, sig] = (token || "").split(".");
+    if (!body || !sig) return null;
+    const expected = crypto.createHmac("sha256", SECRET || "").update(body).digest("base64url");
+    const a = Buffer.from(sig), b = Buffer.from(expected);
+    if (a.length !== b.length || !crypto.timingSafeEqual(a, b)) return null;
+    try {
+        const data = JSON.parse(Buffer.from(body, "base64url").toString());
+        return data.exp > Date.now() ? data : null;
+    } catch {
+        return null;
+    }
+}
 
 
 
@@ -86,7 +107,7 @@ function passwordMatches(password, saved) {
 
 function getLoggedInUser(req) {
     const token = (req.headers.authorization || "").replace("Bearer ", "");
-    return sessions.get(token);
+    return verifyToken(token);
 }
 
 
@@ -115,7 +136,9 @@ async function createUser(req, res) {
                   VALUES (${username}, ${hashPassword(password)}, ${role})`;
         send(res, 200, { message: "User created" });
     } catch (err) {
-        console.log(err);
+        if (err.code === "23505") return send(res, 409, { error: "Username already exists" });
+        console.error(err);
+        send(res, 500, { error: "Server error" });
     }
 }
 
@@ -128,8 +151,7 @@ async function login(req, res) {
         return send(res, 401, { error: "Wrong username or password" });
     }
 
-    const token = crypto.randomBytes(24).toString("hex");
-    sessions.set(token, { username: user.username, role: user.role });
+    const token = signToken({ username: user.username, role: user.role });
     send(res, 200, { token, username: user.username, role: user.role });
 }
 
@@ -197,28 +219,29 @@ async function getCases(req, res) {
     const user = getLoggedInUser(req);
     if (!user) return send(res, 401, { error: "Please log in" });
 
-    let filter;
-    if (user.role === "admin") {
-        filter = sql``;
-    } else if (user.role === "lawyer") {
-        filter = sql`WHERE lawyer_id = (SELECT id FROM users WHERE username = ${user.username})`;
-    } else if (user.role === "customer") {
-        filter = sql`WHERE customer_id = (SELECT id FROM users WHERE username = ${user.username})`;
-    } else {
+    if (!["admin", "lawyer", "customer"].includes(user.role)) {
         return send(res, 403, { error: "Not allowed" });
     }
 
-    const rows = await sql`
-    SELECT case_no AS id,
-           absolute_url,
-           attorney,
-           case_name AS "caseName",
-           court,
-           to_char(date_filed, 'YYYY-MM-DD') AS "dateFiled",
-           status,
-           syllabus
-    FROM cases
-    ${filter}`;
+    let rows;
+    if (user.role === "admin") {
+        rows = await sql`
+            SELECT case_no AS id, absolute_url, attorney, case_name AS "caseName", court,
+                   to_char(date_filed, 'YYYY-MM-DD') AS "dateFiled", status, syllabus
+            FROM cases`;
+    } else if (user.role === "lawyer") {
+        rows = await sql`
+            SELECT case_no AS id, absolute_url, attorney, case_name AS "caseName", court,
+                   to_char(date_filed, 'YYYY-MM-DD') AS "dateFiled", status, syllabus
+            FROM cases
+            WHERE lawyer_id = (SELECT id FROM users WHERE username = ${user.username})`;
+    } else {
+        rows = await sql`
+            SELECT case_no AS id, absolute_url, attorney, case_name AS "caseName", court,
+                   to_char(date_filed, 'YYYY-MM-DD') AS "dateFiled", status, syllabus
+            FROM cases
+            WHERE customer_id = (SELECT id FROM users WHERE username = ${user.username})`;
+    }
 
     send(res, 200, rows);
 }
@@ -234,6 +257,25 @@ async function getCases(req, res) {
 
 
 
+// DATABASE SETUP
+async function withRetry(fn, retries = 5, delayMs = 2000) {
+    for (let i = 1; i <= retries; i++) {
+        try {
+            return await fn();
+        } catch (err) {
+            console.error(`DB attempt ${i}/${retries} failed: ${err.code || err.message}`);
+            if (i === retries) throw err;
+            await new Promise((r) => setTimeout(r, delayMs * i));
+        }
+    }
+}
+
+let tablesReady;
+function ensureTables() {
+    tablesReady ??= withRetry(setupTables).catch((e) => { tablesReady = undefined; throw e; });
+    return tablesReady;
+}
+
 const requestHandler = async (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
@@ -241,7 +283,8 @@ const requestHandler = async (req, res) => {
     if (req.method === "OPTIONS") { res.writeHead(204); return res.end(); }
 
     try {
-        const route = `${req.method} ${req.url}`;
+        await ensureTables();
+        const route = `${req.method} ${new URL(req.url, "http://x").pathname}`;
 
         if (route === "POST /api/addusers") {
             return await createUser(req, res);
@@ -279,19 +322,6 @@ const requestHandler = async (req, res) => {
 
 
 
-
-// DATABASE SETUP
-async function withRetry(fn, retries = 5, delayMs = 2000) {
-    for (let i = 1; i <= retries; i++) {
-        try {
-            return await fn();
-        } catch (err) {
-            console.error(`DB attempt ${i}/${retries} failed: ${err.code || err.message}`);
-            if (i === retries) throw err;
-            await new Promise((r) => setTimeout(r, delayMs * i));
-        }
-    }
-}
 
 export default requestHandler;
 

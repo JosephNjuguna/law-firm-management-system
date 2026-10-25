@@ -5,6 +5,8 @@ A web app for managing a law firm's cases and people. Admins fetch court cases f
 ![Law Firm Management System](./images/welcome.png)
 
 **Live demo:** 
+https://josephnjuguna.github.io/law-firm-management-system/ui/login/login.html
+
 **API:** 
 
 ---
