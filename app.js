@@ -293,8 +293,10 @@ async function withRetry(fn, retries = 5, delayMs = 2000) {
     }
 }
 
-await withRetry(setupTables);
+export default requestHandler;
 
-http.createServer(requestHandler).listen(3000, () => {
-    console.log("Server running at http://localhost:3000");
-});
+if (!process.env.VERCEL) {
+    http.createServer(requestHandler).listen(3000, () => {
+        console.log("Server running at http://localhost:3000");
+    });
+}

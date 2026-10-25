@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node --import dotenv/config ./api/app.js",
-    "dev": "node --import dotenv/config ./api/app.js"
+    "start": "node --import dotenv/config ./app.js",
+    "dev": "node --import dotenv/config ./app.js"
   },
   "repository": {
     "type": "git",
