@@ -102,7 +102,9 @@ uisection("todayBtn").addEventListener("click", () => {
 
 
 
-const API = "http://localhost:3000";
+// const API = "http://localhost:3000";
+const API = "https://law-firm-management-system-nfgpma7t1-josephnjugunas-projects.vercel.app/";
+
 const token = localStorage.getItem("token");
 let customers = [], lawyers = [], currentList = [];
 

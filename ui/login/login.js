@@ -37,7 +37,9 @@ document.getElementById("login-form").addEventListener("submit", function (e) {
     login(username.value.trim(), password.value.trim());
 });
 
-const API = "http://localhost:3000";
+// const API = "http://localhost:3000";
+const API = "https://law-firm-management-system-nfgpma7t1-josephnjugunas-projects.vercel.app/";
+
 let token = "";
 
 // Login form

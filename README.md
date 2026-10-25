@@ -9,6 +9,9 @@ https://josephnjuguna.github.io/law-firm-management-system/ui/login/login.html
 
 **API:** 
 
+**FIGMA DESIGN:** 
+https://www.figma.com/design/s6iV73HtBs0vEMQiUvniAF/law-firm-setup?node-id=0-1&t=moBiIHWo4h59KkuR-0
+
 ---
 
 ## Features
