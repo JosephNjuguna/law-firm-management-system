@@ -8,6 +8,7 @@ A web app for managing a law firm's cases and people. Admins fetch court cases f
 https://josephnjuguna.github.io/law-firm-management-system/ui/login/login.html
 
 **API:** 
+https://law-firm-management-system-nfgpma7t1-josephnjugunas-projects.vercel.app/
 
 **FIGMA DESIGN:** 
 https://www.figma.com/design/s6iV73HtBs0vEMQiUvniAF/law-firm-setup?node-id=0-1&t=moBiIHWo4h59KkuR-0
