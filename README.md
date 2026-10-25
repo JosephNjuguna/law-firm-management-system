@@ -13,6 +13,9 @@ https://law-firm-management-system-nfgpma7t1-josephnjugunas-projects.vercel.app/
 **FIGMA DESIGN:** 
 https://www.figma.com/design/s6iV73HtBs0vEMQiUvniAF/law-firm-setup?node-id=0-1&t=moBiIHWo4h59KkuR-0
 
+
+**PROJECT KANBAN BOARD:**
+https://github.com/users/JosephNjuguna/projects/7/views/1
 ---
 
 ## Features

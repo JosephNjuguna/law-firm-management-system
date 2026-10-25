@@ -38,7 +38,7 @@ document.getElementById("login-form").addEventListener("submit", function (e) {
 });
 
 // const API = "http://localhost:3000";
-const API = "https://law-firm-management-system-nfgpma7t1-josephnjugunas-projects.vercel.app/";
+const API = "https://law-firm-management-system-nfgpma7t1-josephnjugunas-projects.vercel.app";
 
 let token = "";
 
