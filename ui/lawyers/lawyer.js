@@ -65,8 +65,8 @@ uisection("todayBtn").addEventListener("click", () => {
 
 
 let loadedCases = [];
-// const API = "http://localhost:3000";
-const API = "https://law-firm-management-system-nfgpma7t1-josephnjugunas-projects.vercel.app";
+const API = "https://law-firm-management-system-xi.vercel.app";
+
 const token = localStorage.getItem("token");
 // function to render saved cases in the ui
 async function renderCases() {
