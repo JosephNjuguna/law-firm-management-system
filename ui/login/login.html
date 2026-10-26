@@ -20,23 +20,24 @@
                 <p>One secure database for every case, client and hearing.</p>
             </section>
 
-            <form class="form" id="login-form">
+            <form class="form" id="login-form" method="post" novalidate>
                 <h2>Sign in</h2>
 
                 <div class="field">
                     <label for="username">Username</label>
                     <input id="username" name="username" type="text" autocomplete="username" required>
-                    <p id="nameerror"></p>
+                    <p id="nameerror" role="alert"></p>
                 </div>
 
                 <div class="field">
                     <label for="password">Password</label>
                     <input id="password" name="password" type="password" autocomplete="current-password" required>
-                    <p id="passworderror"></p>
+                    <p id="passworderror" role="alert"></p>
                 </div>
 
                 <button class="submit" type="submit">Sign in</button>
             </form>
+
         </div>
     </main>
     <script src="./login.js"></script>
